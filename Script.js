@@ -10,6 +10,7 @@ const symbolsCheck = document.querySelector("#symbols");
 const indicator = document.querySelector("[data-indicator]");
 const generateBtn = document.querySelector(".generateBtn");
 const allCheckBox = document.querySelectorAll("input[type=checkbox");
+const strengthWord = document.querySelector(".strength-indicator-word");
 const symbols = '~`!@#$%^&*()_-+={[}]|:;"<,>.?/';
 
 // set password length and input slider background
@@ -23,6 +24,15 @@ function handleSlider() {
 }
 
 function setIndicator(color) {
+  if (color == "#0f0") {
+    strengthWord.textContent = "Strong";
+  }
+  if (color == "#ff0") {
+    strengthWord.textContent = "Average";
+  }
+  if (color == "#f00") {
+    strengthWord.textContent = "Weak";
+  }
   indicator.style.backgroundColor = color;
   indicator.style.boxShadow = `0px 0px 12px 1px ${color}`;
 }
@@ -163,14 +173,25 @@ function calcStrength() {
   if (symbolsCheck.checked) hasSym = true;
 
   if (hasUpper && hasLower && (hasNum || hasSym) && passwordLength >= 8) {
-    setIndicator("#0f0");
+    setIndicator("#0f0"); // green -> strong
   } else if (
     (hasLower || hasUpper) &&
     (hasNum || hasSym) &&
     passwordLength >= 6
   ) {
-    setIndicator("#ff0");
+    setIndicator("#ff0"); // yellow -> average
   } else {
-    setIndicator("#f00");
+    setIndicator("#f00"); // red -> weak
   }
 }
+indicator.addEventListener("mouseenter", () => {
+  if (strengthWord.textContent.trim() === "") {
+    return;
+  } else {
+    strengthWord.classList.add("active");
+  }
+});
+
+indicator.addEventListener("mouseleave", () => {
+  strengthWord.classList.remove("active");
+});

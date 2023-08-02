@@ -254,6 +254,7 @@ h1 {
 
 .strength-container {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   margin-top: 1.75rem;
@@ -265,11 +266,43 @@ h1 {
   font-size: 1.5rem;
 }
 
+.strength-indicator-word {
+  display: block;
+  position: absolute;
+  border-radius: 5px;
+  top: -151%;
+  left: 80%;
+  width: max-content;
+  height: max-content;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: all 1 ease-in 0;
+  font-style: italic;
+  font-size: large;
+  font-weight: 900;
+  color: var(--vb-yellow);
+  background-color: var(--vb-violet);
+  opacity: 0;
+}
+
+.active {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
 .indicator {
   width: 1.5em;
   height: 1.5rem;
   border-radius: 50%;
-  transition: all 250ms ease-in-out;
+  transition: all 2 ease-in-out;
+}
+
+.indicator:hover {
+  cursor: pointer;
 }
 
 .generateBtn {
