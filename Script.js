@@ -184,6 +184,8 @@ function calcStrength() {
     setIndicator("#f00"); // red -> weak
   }
 }
+
+// for showing the word discribing the strength
 indicator.addEventListener("mouseenter", () => {
   if (strengthWord.textContent.trim() === "") {
     return;
@@ -192,6 +194,7 @@ indicator.addEventListener("mouseenter", () => {
   }
 });
 
+// for removing the word
 indicator.addEventListener("mouseleave", () => {
   strengthWord.classList.remove("active");
 });
