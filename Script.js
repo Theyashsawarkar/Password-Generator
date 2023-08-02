@@ -37,7 +37,6 @@ handleSlider();
 // handle input event on range slider
 inputSlider.addEventListener("input", (e) => {
   passwordLength = e.target.value;
-  // console.log("value", passwordLength);
   handleSlider();
 });
 
@@ -75,17 +74,12 @@ function generateUpperCase() {
   return String.fromCharCode(getRndInteger(65, 91));
 }
 
-//generates any symbols
+//generates any symbols from symbols array
 function generateSymbol() {
   const symbolArr = Array.from(symbols);
   const randIndx = getRndInteger(0, symbolArr.length);
   return symbolArr[randIndx];
 }
-
-// console.log("Number: ", generateRandomNumber());
-// console.log("Lowercase: ", generateLowerCase());
-// console.log("Uppercase: ", generateUpperCase());
-// console.log("Symbols: ", generateSymbol());
 
 // Shuffle the array randomly - Fisher Yates Method
 function shuffleArray(array) {
@@ -103,7 +97,12 @@ function shuffleArray(array) {
 // Handle generate password
 generateBtn.addEventListener("click", () => {
   // none of the checkboxes are selected
-  if (checkCount <= 0) return;
+  if (checkCount <= 0) {
+    generateBtn.textContent = "select atleast one box";
+    setTimeout(() => {
+      generateBtn.textContent = "generate password";
+    }, 1500);
+  }
   // password-length should be >= selected no. of checkbox
   if (passwordLength < checkCount) {
     passwordLength = checkCount;
@@ -119,10 +118,12 @@ generateBtn.addEventListener("click", () => {
   if (numbersCheck.checked) funcArr.push(generateRandomNumber);
   if (symbolsCheck.checked) funcArr.push(generateSymbol);
 
+  // for compulsory characters
   for (let i = 0; i < funcArr.length; i++) {
     password += funcArr[i]();
   }
 
+  // for remaining length of the password
   for (let i = 0; i < passwordLength - funcArr.length; i++) {
     let randIndx = getRndInteger(0, funcArr.length);
     password += funcArr[randIndx]();
@@ -131,11 +132,9 @@ generateBtn.addEventListener("click", () => {
   password = shuffleArray(Array.from(password));
   passwordDisplay.value = password;
   calcStrength();
-
-  // console.log("Password: ", password);
-  // console.log("Password Length: ", password.length);
 });
 
+// for copying the password
 async function copyContent() {
   try {
     await navigator.clipboard.writeText(passwordDisplay.value);
