@@ -23,6 +23,7 @@ function handleSlider() {
     ((passwordLength - min) * 100) / (max - min) + "% 100%";
 }
 
+// for setting the color and strength
 function setIndicator(color) {
   if (color == "#0f0") {
     strengthWord.textContent = "Strong";
